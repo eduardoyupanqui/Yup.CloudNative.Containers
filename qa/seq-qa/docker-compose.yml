@@ -2,7 +2,8 @@ version: '3.8'
 
 networks:
     seqqanetwork:
-
+volumes:
+  data:
 services:
     seqcli:
         image: datalust/seqcli:latest
@@ -17,7 +18,7 @@ services:
     seq:
         image: datalust/seq:latest
         volumes:
-          - /path/to/seqqa/data:/data
+          - data:/data
         environment:
             - ACCEPT_EULA=Y
         ports:
