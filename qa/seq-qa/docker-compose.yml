@@ -1,7 +1,7 @@
-version: '3.8'
+version: '3.3'
 
 networks:
-    seqqanetwork:
+  network:
 volumes:
   data:
 services:
@@ -12,7 +12,7 @@ services:
           - seq
         restart: on-failure
         networks:
-          - seqqanetwork
+          - network
         links:
           - seq
     seq:
@@ -25,6 +25,6 @@ services:
             - 8003:80
             - 5342:5341
         networks:
-            - seqqanetwork
+            - network
     
     

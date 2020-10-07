@@ -1,7 +1,7 @@
-version: '3.8'
+version: '3.3'
 
 networks:
-    seqdevnetwork:
+  network:
 volumes:
   data:
 
@@ -13,7 +13,7 @@ services:
           - seq
         restart: on-failure
         networks:
-          - seqdevnetwork
+          - network
         links:
           - seq
     seq:
@@ -26,4 +26,4 @@ services:
             - 80:80
             - 5341:5341
         networks:
-            - seqdevnetwork
+            - network
