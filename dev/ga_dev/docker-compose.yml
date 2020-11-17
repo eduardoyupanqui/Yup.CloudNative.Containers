@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+
+  ga-api:
+    image: registry.yup.gob.pe/wf/ga-api:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTPS_PORT=44392
+      - TZ=America/Lima
+      #- ASPNETCORE_Kestrel__Certificates__Default__Password=mypassword123
+      #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - Serilog__WriteTo__0__Name=Seq
+      - Serilog__WriteTo__0__Args__serverUrl=http://172.16.95.52:5342
+      - Serilog__WriteTo__0__Args__apiKey=5gn4wqAEyNHZ2QhY18nU
+    ports:
+      #- "44392:443"
+      - "54023:80"
+    networks:
+      - ga
+    #volumes:
+      #- ./https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+  ga-ui:
+    image: registry.yup.gob.pe/wf/ga-ui:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTPS_PORT=44382
+      - TZ=America/Lima
+      #- ASPNETCORE_Kestrel__Certificates__Default__Password=mypassword123
+      #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - AppConfig__Urls__URL_CORE_API=http://ga-api/
+      - TriggeredActionsSettings__SyncFileRequestsDestination=/mnt/wf/SyncFileGrados
+      - FolderConfig__Apps__0__remotePath=/mnt/wf/ga_temp
+      - FolderConfig__Apps__0__identityPool=true
+      - FolderConfig__Apps__1__remotePath=/mnt/wf/ga
+      - FolderConfig__Apps__1__identityPool=true
+      - FolderConfig__Apps__1__downloadFSBaseFolder=/mnt/wf/origen
+      - FolderConfig__Apps__1__uploadFSBaseFolder=/mnt/wf/destino
+      - Serilog__WriteTo__0__Name=Seq
+      - Serilog__WriteTo__0__Args__serverUrl=http://172.16.95.52:5342
+      - Serilog__WriteTo__0__Args__apiKey=5gn4wqAEyNHZ2QhY18nU
+    ports:
+      #- "44382:443"
+      - "54013:80"
+    networks:
+      - ga
+    volumes:
+      #- ./https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+      - /mnt/wf:/mnt/wf:rw
+    depends_on: 
+      - ga-api
+networks:
+  ga:
+    #external: true
