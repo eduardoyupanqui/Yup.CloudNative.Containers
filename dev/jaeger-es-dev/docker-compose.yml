@@ -65,6 +65,7 @@ services:
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
       - no_proxy=localhost
+      - JAEGER_ENDPOINT=http://jaeger-collector:14268/api/traces
     ports:
       - "16686:16686"
       - "16687:16687"
