@@ -63,6 +63,8 @@ services:
       DB_PASSWORD: ${KONGA_DB_PASSWORD}
       NODE_ENV: ${KONGA_ENV}
       KONGA_HOOK_TIMEOUT: 10000
+      #SSL_CRT_PATH: /https/cert.crt
+      #SSL_KEY_PATH: /https/cert-pub.key
     restart: on-failure
     ports:
     - $KONGA_PORT:1337
@@ -70,7 +72,9 @@ services:
     - kong-database
     networks:
     - kong-net
-
+    volumes:
+    #- /https/cert.crt:/https/cert.crt:ro
+    #- /https/cert-pub.key:/https/cert-pub.key:ro
 
 
 volumes:
