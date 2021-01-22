@@ -15,7 +15,7 @@ services:
     ports:
     - 5432:5432
   kong-migrations:
-    image: kong:latest
+    image: kong:2.1.3
     entrypoint: sh -c "sleep 10 && kong migrations bootstrap -v"
     environment:
       KONG_DATABASE: ${KONG_DATABASE}
@@ -30,7 +30,7 @@ services:
     restart: on-failure
 
   kong:
-    image: kong:latest
+    image: kong:2.1.3
     environment:
       KONG_DATABASE: ${KONG_DATABASE}
       KONG_PG_HOST: ${KONG_DB_HOST}
