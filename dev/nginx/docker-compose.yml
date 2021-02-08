@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  web:
+    image: registry.yup.com/yup/web:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+      - TZ=America/Lima
+      #- ASPNETCORE_Kestrel__Certificates__Default__Password=$KESTREL_CERTIFICATES_PASSWORD
+      #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/domain.com.pfx
+      - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+    ports:
+      #- "44310:443"
+      - "54013:80"
+    networks:
+      - yup
+    volumes:
+      #- /https/domain.com.pfx:/https/domain.com.pfx:ro
+  nginx:
+    image: "nginx:latest"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /https:/etc/ssl
+      - /home/eduardo/composes/nginx/conf.d:/etc/nginx/conf.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - yup
+    restart: unless-stopped
+networks:
+  yup:
+    #external: true
+    #driver: bridge
