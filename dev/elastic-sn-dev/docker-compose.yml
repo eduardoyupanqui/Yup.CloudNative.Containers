@@ -32,10 +32,16 @@ services:
     networks:
       - elasticsn
 volumes:
+#  dataes:
+#    driver: local
   dataes:
-    driver: local
+    external:
+      name: elastic_data
+#  dataki:
+#    driver: local
   dataki:
-    driver: local
+    external:
+      name: kibana_data
 
 networks:
   elasticsn:
