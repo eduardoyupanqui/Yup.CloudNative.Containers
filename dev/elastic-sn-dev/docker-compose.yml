@@ -17,6 +17,7 @@ services:
       - dataes:/usr/share/elasticsearch/data
     networks:
       - elasticsn
+    restart: always
   kibana:
     image: docker.elastic.co/kibana/kibana:$ELASTIC_VERSION
     ports:
@@ -31,6 +32,7 @@ services:
       - elasticsearch
     networks:
       - elasticsn
+    restart: always
 volumes:
 #  dataes:
 #    driver: local

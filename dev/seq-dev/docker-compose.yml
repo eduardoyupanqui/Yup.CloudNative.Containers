@@ -27,3 +27,4 @@ services:
             - 5341:5341
         networks:
             - network
+        restart: always
