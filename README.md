@@ -79,6 +79,15 @@ Enviroments variables que se necesitara agregar en el archivo
 KESTREL_CERTIFICATES_PASSWORD=mypassword
 ```
 
+### dev/rabbit-dev
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+RABBITMQ_ERLANG_COOKIE=unique-erlang-cookie
+RABBITMQ_DEFAULT_USER=guest
+RABBITMQ_DEFAULT_PASS=guest
+```
+
 ### dev/redis-dev
 Enviroments variables que se necesitara agregar en el archivo
 ***.env***

@@ -1,0 +1,22 @@
+version: "3.2"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        #- ~/.docker/rabbitmq/etc/:/etc/rabbitmq/
+        - ~/.docker/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker/rabbitmq/log/:/var/log/rabbitmq
+    environment:
+      # RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    networks:
+        - rabbitmq_net
+
+networks:
+  rabbitmq_net:
+    driver: bridge
