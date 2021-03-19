@@ -79,3 +79,9 @@ Enviroments variables que se necesitara agregar en el archivo
 KESTREL_CERTIFICATES_PASSWORD=mypassword
 ```
 
+### dev/redis-dev
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+REDIS_DEFAULT_PASS=mypass
+```
