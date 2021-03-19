@@ -72,6 +72,14 @@ KONGA_ENV=development
 KONGA_PORT=1337
 ```
 
+### dev/mongo-dev
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+MONGO_DEFAULT_USER=root
+MONGO_DEFAULT_PASS=mypass
+```
+
 ### dev/nginx
 Enviroments variables que se necesitara agregar en el archivo
 ***.env***
