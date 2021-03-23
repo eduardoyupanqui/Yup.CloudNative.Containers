@@ -16,7 +16,7 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     networks:
         - rabbitmq_net
-
+    restart: unless-stopped
 networks:
   rabbitmq_net:
     driver: bridge
