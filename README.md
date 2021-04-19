@@ -28,6 +28,17 @@ SERILOG_APIKEY=
 MONGO_CONNECTION=mongodb://user:password@miip:69/Database
 ```
 
+### dev/grafana-logstash
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+GRAFANA_PASSWORD=
+
+ELASTIC_VERSION=7.5.2
+ELASTIC_SECURITY=true
+ELASTIC_PASSWORD=
+```
+
 ### dev/jaeger-es-dev
 Enviroments variables que se necesitara agregar en el archivo
 ***.env***
