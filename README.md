@@ -19,6 +19,14 @@ ELASTIC_SECURITY=true
 ELASTIC_PASSWORD=
 ```
 
+### dev/fluentd-loki-dev
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+LOKI_USERNAME=user
+LOKI_PASSWORD=password
+```
+
 ### dev/ga_dev
 Enviroments variables que se necesitara agregar en el archivo
 ***.env***
