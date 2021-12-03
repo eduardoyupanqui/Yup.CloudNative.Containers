@@ -106,6 +106,20 @@ Enviroments variables que se necesitara agregar en el archivo
 KESTREL_CERTIFICATES_PASSWORD=mypassword
 ```
 
+### dev/sonarqube
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+SONARQUBE_JDBC_USERNAME=usr_sonar
+SONARQUBE_JDBC_PASSWORD=usr_sonar
+SONARQUBE_JDBC_URL=jdbc:sqlserver://localhost\dev;databaseName=SonarQube
+#SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
+
+POSTGRES_USER=sonarqube
+POSTGRES_PASSWORD=sonarpass
+POSTGRES_DB=sonarqube
+```
+
 ### dev/rabbit-dev
 Enviroments variables que se necesitara agregar en el archivo
 ***.env***
