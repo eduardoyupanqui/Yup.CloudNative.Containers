@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+
+  configserver:
+    image: "hyness/spring-cloud-config-server"
+    # command: '--spring.profiles.active=native --spring.cloud.config.server.native.searchLocations=file:///config/{label}/{application}'
+    environment:
+      - SPRING_PROFILES_ACTIVE=awss3
+      - SPRING_CLOUD_CONFIG_SERVER_AWSS3_REGION=$AWSS3_REGION
+      - SPRING_CLOUD_CONFIG_SERVER_AWSS3_BUCKET=$AWSS3_BUCKET
+      - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+    ports:
+      - "8888:8888"
+    restart: always

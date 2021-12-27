@@ -135,3 +135,13 @@ Enviroments variables que se necesitara agregar en el archivo
 ```
 REDIS_DEFAULT_PASS=mypass
 ```
+
+### dev/config-server
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=us-east-1
+AWSS3_BUCKET=bucket-config-dev
+```
