@@ -145,3 +145,18 @@ AWS_SECRET_ACCESS_KEY=
 AWS_REGION=us-east-1
 AWSS3_BUCKET=bucket-config-dev
 ```
+
+### dev/prometheus-grafana
+Enviroments variables que se necesitara agregar en el archivo
+https://grafana.com/grafana/dashboards/12900 for springBoot APM
+
+***grafana/grafana.ini***
+```bash
+wget https://raw.githubusercontent.com/grafana/grafana/main/conf/defaults.ini -O ./grafana/grafana.ini
+vim  ./grafana/grafana.ini
+```
+***.env***
+```
+GF_ADMIN_USER=
+GF_ADMIN_PASS=
+```
