@@ -160,3 +160,18 @@ vim  ./grafana/grafana.ini
 GF_ADMIN_USER=
 GF_ADMIN_PASS=
 ```
+
+### dev/kafka
+Enviroments variables que se necesitara agregar en el archivo
+***.env***
+```
+DOCKER_HOST_IP=192.168.99.100
+```
+***.sh***
+```
+# Single Zookeeper / Single Kafka
+docker-compose -f zk-single-kafka-single.yml up
+
+# Multiple Zookeeper / Single Kafka
+docker-compose -f zk-multiple-kafka-multiple.yml up
+```
