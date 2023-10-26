@@ -175,3 +175,18 @@ docker-compose -f zk-single-kafka-single.yml up
 # Multiple Zookeeper / Single Kafka
 docker-compose -f zk-multiple-kafka-multiple.yml up
 ```
+
+### dev/baget
+Enviroments variables que se necesitara agregar en el archivo
+***baget.env***
+```
+# The following config is the API Key used to publish packages.
+# You should change this to a secret value to secure your server.
+ApiKey=yupanqui
+
+Storage__Type=FileSystem
+Storage__Path=/var/baget/packages
+Database__Type=Sqlite
+Database__ConnectionString=Data Source=/var/baget/baget.db
+Search__Type=Database
+```

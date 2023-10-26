@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    baget:
+        image: loicsharma/baget:latest
+        container_name: nuget-server
+        env_file:
+          - baget.env
+        volumes:
+          - ./baget-data:/var/baget
+        ports:
+            - 5555:80
