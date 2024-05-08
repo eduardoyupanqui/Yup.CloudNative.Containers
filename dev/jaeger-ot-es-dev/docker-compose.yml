@@ -14,12 +14,14 @@ services:
       - jaeger-collector
 
   jaeger-collector:
-    image: jaegertracing/jaeger-opentelemetry-collector
+    image: jaegertracing/jaeger-collector:latest
     command: ["--es.num-shards=1", "--es.num-replicas=0", "--es.server-urls=http://elasticsearch:9200", "--collector.zipkin.host-port=:9411"]
     ports:
-      - "14250"
-      - "14268"
-      - "9411"
+      - "14250:14250" # accept model.proto
+      - "14268:14268" # accept jaeger.thrift directly from clients
+      # - "9411" # Zipkin compatible endpoint (optional)
+      - "4317:4317" # accept OpenTelemetry Protocol (OTLP) over gRPC
+      - "4318:4318" # accept OpenTelemetry Protocol (OTLP) over HTTP
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
       - LOG_LEVEL=debug
@@ -28,8 +30,8 @@ services:
       - elasticsearch
 
   jaeger-agent:
-    image: jaegertracing/jaeger-opentelemetry-agent
-    command: ["--config=/config/otel-agent-config.yml", "--reporter.grpc.host-port=jaeger-collector:14250"]
+    image: jaegertracing/jaeger-agent
+    command: ["--config-file=/config/otel-agent-config.yml", "--reporter.grpc.host-port=jaeger-collector:14250"]
     volumes:
       - ./:/config/:ro
     ports:
@@ -44,8 +46,8 @@ services:
     image: jaegertracing/jaeger-query
     command: ["--es.num-shards=1", "--es.num-replicas=0", "--es.server-urls=http://elasticsearch:9200"]
     ports:
-      - "16686:16686"
-      - "16687"
+      - "16686:16686" # /api/* endpoints and Jaeger UI at /
+      - "16687:16687" # admin port: health check at / and metrics at /metrics
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
       - LOG_LEVEL=debug
@@ -54,8 +56,18 @@ services:
       - elasticsearch
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.21
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
     ports:
-      - "9200/tcp"
+      - "9200:9200/tcp"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.21
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
