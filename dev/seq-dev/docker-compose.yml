@@ -23,7 +23,7 @@ services:
         environment:
             - ACCEPT_EULA=Y
         ports:
-            - 80:80
+            - 8080:80
             - 5341:5341
         networks:
             - network
