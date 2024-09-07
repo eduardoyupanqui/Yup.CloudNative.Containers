@@ -11,3 +11,33 @@ services:
       - "55679:55679"
     volumes:
       - ./configs/otel-collector-config.yml:/etc/otel-collector-config.yml
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./configs/prometheus-config.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - otelcollector
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      GF_INSTALL_PLUGINS: 'grafana-clock-panel,grafana-simple-json-datasource'
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./configs/grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
+      - ./configs/grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
+      # Map to different folders to prevent name collision.
+      # - ./configs/grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+    env_file:
+      - ./configs/grafana/config.monitoring.env
+    ports:
+       - 3000:3000
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana_data:
+    driver: local
