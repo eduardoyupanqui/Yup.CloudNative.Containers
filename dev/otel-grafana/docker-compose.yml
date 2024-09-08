@@ -37,7 +37,20 @@ services:
        - 3000:3000
     depends_on:
       - prometheus
-
+  tempo:
+    image: grafana/tempo:latest
+    command: [ "-config.file=/etc/tempo.yml" ]
+    volumes:
+      - ./configs/tempo-config.yml:/etc/tempo.yml
+      - tempo_data:/var/tempo
+    ports:
+      - "14268"  # jaeger ingest
+      - "3200"   # tempo
+      - "4317"  # otlp grpc
+      - "4318"  # otlp http
+      - "9411"   # zipkin
 volumes:
   grafana_data:
+    driver: local
+  tempo_data:
     driver: local
