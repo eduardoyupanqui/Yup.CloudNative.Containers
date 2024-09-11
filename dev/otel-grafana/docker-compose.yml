@@ -50,7 +50,7 @@ services:
       - "4318"  # otlp http
       - "9411"   # zipkin
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:3.1.1
     command: ["-config.file=/etc/loki.yaml"]
     ports:
       - 3100

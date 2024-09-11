@@ -17,8 +17,9 @@ exporters:
       insecure: true
   # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/lokiexporter/README.md
   otlphttp/loki:
-    # endpoint: "http://loki:3100/otlp/v1/logs"
-    endpoint: "http://loki:3100/loki/api/v1/push" #works
+    endpoint: "http://loki:3100/otlp" #loki:3.1.1
+    tls:
+      insecure: true
 processors:
     batch:
 service:
