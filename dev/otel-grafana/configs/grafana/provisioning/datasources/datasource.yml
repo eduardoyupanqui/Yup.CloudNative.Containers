@@ -64,3 +64,18 @@ datasources:
     httpMethod: GET
     serviceMap:
       datasourceUid: prometheus
+
+- name: Loki
+  uid: loki
+  type: loki
+  isDefault: false
+  version: 1
+  editable: false
+  access: proxy
+  url: http://loki:3100
+  jsonData:
+    derivedFields:
+      - datasourceUid: tempo
+        matcherRegex: "TraceId=(\\w+)"
+        name: TraceId
+        url: "$${__value.raw}"

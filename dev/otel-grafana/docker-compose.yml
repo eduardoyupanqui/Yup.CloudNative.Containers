@@ -49,6 +49,15 @@ services:
       - "4317"  # otlp grpc
       - "4318"  # otlp http
       - "9411"   # zipkin
+  loki:
+    image: grafana/loki:latest
+    command: ["-config.file=/etc/loki.yaml"]
+    ports:
+      - 3100
+      - 7946
+      - 9095
+    volumes:
+      - "./configs/loki-config.yml:/etc/loki.yaml"
 volumes:
   grafana_data:
     driver: local
